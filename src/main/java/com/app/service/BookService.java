@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.BookDto;
+import com.app.payloads.BookResponse;
 
 public interface BookService {
 	
@@ -18,5 +19,7 @@ public interface BookService {
 	public void deleteBook(Integer id) ;
 	
 	public List<BookDto> searchBook(String ch);
+	
+	public BookResponse getAllBooks(int pageNo, int pageSize, String sortBy, String sortDir);
 	
 }

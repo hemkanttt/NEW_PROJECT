@@ -15,5 +15,9 @@ public interface CategoryService {
 	
 	public  List<BookDto>  getBookByCategory(Integer id);
 	
+	void deleteCategory(Integer id);
 	
+	CategoryDto updateCategory(CategoryDto categoryDto, Integer id);
+
+	List<CategoryDto> getAllCategory();
 };

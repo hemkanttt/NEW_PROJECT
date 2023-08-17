@@ -36,6 +36,8 @@ public class Orders {
 
 	private LocalDate date;
 
+	private Double price ;
+	
 	private String status;
 
 	@Override

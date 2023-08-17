@@ -21,5 +21,7 @@ public class BookOrderDto {
 	
 	private LocalDate date;
 	
+	private Double price;
+	
 	private String status;
 }

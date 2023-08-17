@@ -3,6 +3,7 @@ package com.app.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowire;
@@ -14,6 +15,7 @@ import com.app.dto.BookDto;
 import com.app.dto.CategoryDto;
 import com.app.entities.Book;
 import com.app.entities.Category;
+import com.app.exceptions.ResourceNotFoundException;
 import com.app.repo.categoryRepo;
 @Service
 @Transactional
@@ -44,6 +46,33 @@ public class CategorySeviceImpl implements CategoryService {
 			bd.add(mapper.map(book2,BookDto.class));
 		}
 		return bd;
+	}
+	
+	@Override
+	public List<CategoryDto> getAllCategory() {
+
+		return catRepo.findAll().stream().map(e -> mapper.map(e, CategoryDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public CategoryDto updateCategory(CategoryDto categoryDto, Integer id) {
+
+		Category category = catRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("CategoryNotFound"));
+
+		category.setId(id);
+		category.setCategoryName(categoryDto.getCategoryName());
+		category.setDescription(categoryDto.getDescription());
+
+		return mapper.map(catRepo.save(category), CategoryDto.class);
+	}
+
+	@Override
+	public void deleteCategory(Integer id) {
+
+		Category category = catRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("CategoryNotFound"));
+		catRepo.delete(category);
 	}
 
 }

@@ -62,6 +62,8 @@ public class CartServiceImpl implements CartService {
 		return cartDto;
 	}
 
+	
+	//will be used when jwt token implemented
 	@Override
 	public List<CartDto> getAllCartByUser(HttpServletRequest request) {
 		// TODO Auto-generated method stub
@@ -69,14 +71,17 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public CartDto updateQuantity(Integer id, Integer quntity) {
-		// TODO Auto-generated method stub
-		return null;
+	public CartDto updateQuantity(Integer id, Integer quantity) {
+		Cart cart = cartRepo.findById(id).get();
+		cart.setQuantity(quantity);
+		Cart updateCart = cartRepo.save(cart);
+		return mapper.map(updateCart, CartDto.class);
 	}
 
 	@Override
 	public void deleteCart(Integer id) {
-		// TODO Auto-generated method stub
+		Cart cart = cartRepo.findById(id).get();
+		cartRepo.delete(cart);
 
 	}
 

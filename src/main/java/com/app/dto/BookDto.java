@@ -31,6 +31,16 @@ public class BookDto {
 	private Double price;
 
 	private String img;
+	
+	private Double avgRating;
+
+	public Double getAvgRating() {
+		return avgRating;
+	}
+
+	public void setAvgRating(Double avgRating) {
+		this.avgRating = avgRating;
+	}
 
 	public BookDto() {
 		super();

@@ -46,9 +46,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto updateUser(UserDto userDto, Integer id) {
+	public User updateUser(User u) {
 		// TODO Auto-generated method stub
-		return null;
+		return userRepo.save(u);
 	}
 
 	@Override

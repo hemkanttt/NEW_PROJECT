@@ -60,14 +60,16 @@ System.out.println(userId+"     1   "+ptype);
 		Random random = new Random();
 		System.out.println(userId+"     2   "+ptype);
 		for (CartDto c : cartList) {
+			Book book1 = bookRepo.findById(c.getBookId()).get();
 			bookOrder = new BookOrderDto();
-			bookOrder.setBook(mapper.map(bookRepo.findById(c.getBookId()).get(), BookDto.class) );
+			bookOrder.setBook(mapper.map(book1, BookDto.class) );
 			bookOrder.setUser(mapper.map(userRepo.findById(c.getUserId()).get(), UserDto.class) );
 			bookOrder.setQuantity(c.getQuantity());
 			bookOrder.setPaymentType(ptype);
 			bookOrder.setOrderNumber("ORD-" + random.nextInt(1000));
 			bookOrder.setDate(LocalDate.now());
 			bookOrder.setStatus("Order Processing");
+			bookOrder.setPrice(c.getQuantity()* book1.getPrice());
 			orderListDto.add(bookOrder);
 			
 		}
