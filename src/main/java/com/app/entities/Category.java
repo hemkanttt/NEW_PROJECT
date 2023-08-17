@@ -5,11 +5,17 @@ import java.util.List;
 
 import javax.persistence.*;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
 
 	@Id
@@ -22,7 +28,16 @@ public class Category {
 	private String description;
 
 	
-	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "category",  cascade = CascadeType.ALL)
 	private List<Book> book = new ArrayList<Book>();
+
+
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", categoryName=" + categoryName + ", description=" + description + "]";
+	}
+	
+	
+	
 
 }

@@ -4,11 +4,17 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Orders {
 
 	@Id
@@ -31,5 +37,13 @@ public class Orders {
 	private LocalDate date;
 
 	private String status;
+
+	@Override
+	public String toString() {
+		return "Orders [id=" + id + ", quantity=" + quantity + ", paymentType=" + paymentType + ", orderNumber="
+				+ orderNumber + ", date=" + date + ", status=" + status + "]";
+	}
+	
+	
 
 }

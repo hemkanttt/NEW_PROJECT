@@ -1,12 +1,20 @@
 package com.app.entities;
 
 import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "books")
 public class Book{
 
@@ -32,6 +40,15 @@ public class Book{
 	private Double price;
 
 	private String img;
-
 	
+	private Integer status;
+	
+	
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", bookName=" + bookName + ", description=" + description + ", author=" + author
+				+ ", isbnNo=" + isbnNo + ", language=" + language + ", price=" + price + ", img=" + img + "]";
+	}
+
 }

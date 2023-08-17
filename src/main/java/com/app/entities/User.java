@@ -14,10 +14,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
 	@Id 
@@ -51,6 +58,15 @@ public class User {
 	
 	@OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , fetch =FetchType.LAZY)
 	List<Cart> cartList=new ArrayList<Cart>();
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", mobNo=" + mobNo
+				+ ", address=" + address + ", city=" + city + ", state=" + state + ", pincode=" + pincode + ", role="
+				+ role + ", token=" + token + "]";
+	}
+	
+	
 
 
 }

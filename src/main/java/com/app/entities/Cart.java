@@ -2,11 +2,18 @@ package com.app.entities;
 
 import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cart {
 	
 	@Id
@@ -26,5 +33,14 @@ public class Cart {
 
 	@Transient
 	private Double totalPrice;
+
+	@Override
+	public String toString() {
+		return "Cart [id=" + id + ", quantity=" + quantity + ", totalPrice="
+				+ totalPrice + "]";
+	}
+	
+	
+	
 
 }
