@@ -110,12 +110,28 @@ System.out.println(userId+"     1   "+ptype);
 		return list.stream().map((e) -> mapper.map(e, BookOrderDto.class)).collect(Collectors.toList());
 	}
 
-	@Override
+	
 	public BookOrderDto updateOrder(Integer id, String st) {
 
 		Orders bookOrd = bookOrderRepo.findById(id).get();
 		bookOrd.setStatus(st);
 		Orders updtbkOrd = bookOrderRepo.save(bookOrd);
-		return mapper.map(updtbkOrd, BookOrderDto.class);
+		return mapper.map(bookOrd, BookOrderDto.class);
 	}
+	
+	@Override
+	public List<SalesByMonthDTO> getTotalSalesByMonth(Integer year){
+		return mapResultsToDTO(bookOrderRepo.getTotalSalesByMonth(year));
+	}
+	
+    private List<SalesByMonthDTO> mapResultsToDTO(List<Object[]> results) {
+        List<SalesByMonthDTO> dtoList = new ArrayList<>();
+        for (Object[] result : results) {
+            Integer month = (Integer) result[0];
+            Double totalSales = (Double) result[1];
+            SalesByMonthDTO dto = new SalesByMonthDTO(month, totalSales);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
 }

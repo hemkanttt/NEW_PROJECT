@@ -20,7 +20,7 @@ import com.app.service.CartService;
 import com.app.service.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
 	@Autowired
@@ -31,9 +31,10 @@ public class UserController {
 
 	@Autowired
 	private BookOrderService orderService;
-	
-//	@GetMapping("/signin")
+//	
+//	@PostMapping("/signin")
 //	public ResponseEntity<?> getUserByEmailandPassword(@RequestBody UserDto userDto) {
+//		System.out.println(userDto);
 //		return ResponseEntity.status(HttpStatus.FOUND).body(userService.getUserByEmailAndPassword(userDto));
 //	}
 //
@@ -52,7 +53,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(cartService.addCart(cartDto));
 	}
 
-	@GetMapping("/order/{ptype}/{id}")
+	@GetMapping("/order/{ptype}/{userId}")
 	public ResponseEntity<?> order(@PathVariable Integer userId, @PathVariable String ptype) {
 		System.out.println(userId);
 		System.out.println(ptype);
@@ -76,6 +77,12 @@ public class UserController {
 		cartService.deleteCart(id);
 		return new ResponseEntity<>("Cart Deleted Sucessfully", HttpStatus.OK);
 	}
+	
+	@GetMapping("/carts/{userID}")
+	public ResponseEntity<?> getCartListByUser(@PathVariable Integer userID) {
+		return ResponseEntity.status(HttpStatus.OK).body(cartService.getCartByUser(userID));
+	}
+	
 	
 	
 

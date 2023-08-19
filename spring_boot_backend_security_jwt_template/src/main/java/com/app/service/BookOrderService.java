@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.app.dto.BookOrderDto;
+import com.app.dto.SalesByMonthDTO;
 
 public interface BookOrderService {
 	
@@ -15,5 +16,9 @@ public interface BookOrderService {
 	public List<BookOrderDto> getAllOrder();
 
 	public BookOrderDto updateOrder(Integer id, String st);
+	
+	public List<SalesByMonthDTO> getTotalSalesByMonth(Integer year);
+	
+	
 
 }

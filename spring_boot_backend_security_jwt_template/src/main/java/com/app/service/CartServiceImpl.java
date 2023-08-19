@@ -37,12 +37,14 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public CartDto addCart(CartDto cartDto) {
 		
-	Book book = bookRepo.findById(cartDto.getBookId()).orElseThrow(()->new RuntimeException());
+	    Book book = bookRepo.findById(cartDto.getBookId()).orElseThrow(()->new RuntimeException());
 		User user = userRepo.findById(cartDto.getUserId()).orElseThrow(()->new RuntimeException());
 		Cart cart = mapper.map(cartDto, Cart.class);
+		cart.setTotalPrice(book.getPrice()*cartDto.getQuantity());
 		cart.setUser(user);
 		cart.setBook(book);
-		     boolean add = user.getCartList().add(cart);
+		boolean add = user.getCartList().add(cart);
+		System.out.println(cart);
 		     
 		return mapper.map(cart, CartDto.class);
 	}
@@ -53,6 +55,7 @@ public class CartServiceImpl implements CartService {
 		List<Cart> carts = cartRepo.findByUser(userRepo.findById(id).get());
 		List<CartDto> cartDto=new ArrayList<CartDto>();
 		for (Cart cartDto2 : carts) {
+			System.out.println(cartDto2);
 			CartDto cartDto3 = mapper.map(cartDto2, CartDto.class);
 			cartDto3.setUserId(cartDto2.getUser().getId());
 			cartDto3.setBookId(cartDto2.getBook().getId());

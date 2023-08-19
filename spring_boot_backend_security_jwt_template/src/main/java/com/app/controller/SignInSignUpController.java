@@ -25,7 +25,7 @@ import com.app.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class SignInSignUpController {
 //dep : JWT utils : for generating JWT
 	@Autowired

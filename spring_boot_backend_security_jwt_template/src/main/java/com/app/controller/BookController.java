@@ -52,7 +52,7 @@ public class BookController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(bookService.addbook(null, file)) ;
 	}
 	
-	@GetMapping("/page")
+	@GetMapping("/pages")
 	public ResponseEntity<?> getAllBookByPagination(
 
 			@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
@@ -86,9 +86,9 @@ public class BookController {
 		return new ResponseEntity<>(bookService.searchBook(ch), HttpStatus.OK);
 	}
 	
-	@GetMapping("/CategorySearch/{catId}")
-	public ResponseEntity<?> searchByCategory(@RequestParam Integer catId) {
-		
+	@GetMapping("/categorysearch/{catId}")
+	public ResponseEntity<?> searchByCategory(@PathVariable Integer catId) {
+		System.out.println(catId);
 		return new ResponseEntity<>(catService.getBookByCategory(catId), HttpStatus.OK);
 	}
 	
@@ -104,7 +104,7 @@ public class BookController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.addReview(reviewDto)) ;
 	}
 	
-	@GetMapping("/review/{id}")
+	@GetMapping("/reviews/{id}")
 	public ResponseEntity<?> getReviews(@PathVariable  Integer id) {
 		return new ResponseEntity<>(reviewService.getReviewByBook(id), HttpStatus.OK);
 	}
