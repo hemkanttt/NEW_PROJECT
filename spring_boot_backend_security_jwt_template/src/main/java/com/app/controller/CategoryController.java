@@ -3,6 +3,7 @@ package com.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.app.dto.CategoryDto;
 import com.app.service.CategoryService;
 
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping("/api/category")
 public class CategoryController {
 	@Autowired
@@ -26,6 +28,8 @@ public class CategoryController {
 	public ResponseEntity<?> addCategory(@RequestBody CategoryDto catDto){
 	return ResponseEntity.status(HttpStatus.CREATED).body(catService.addCategory(catDto));	
 	}
+	
+	
 	@GetMapping("/categories")
 	public ResponseEntity<?> getCategories() {
 		return new ResponseEntity<>(catService.getAllCategory(), HttpStatus.OK);

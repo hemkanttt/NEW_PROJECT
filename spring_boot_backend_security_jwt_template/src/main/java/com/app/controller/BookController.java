@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.app.service.CategoryService;
 import com.app.service.ReviewService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/book")
 public class BookController {
 	@Autowired
@@ -39,13 +41,34 @@ public class BookController {
 					
 		return new ResponseEntity<>(bookService.addbook(book, file), HttpStatus.CREATED);
 	}
-	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/update")
-	public ResponseEntity<?> updateBook(@RequestBody BookDto bookDto, MultipartFile file) {
-		System.out.println(bookDto);
-		return new ResponseEntity<>(bookService.updateBook(bookDto, file), HttpStatus.OK);
+//	@PreAuthorize("hasRole('ADMIN')")
+//	@PostMapping(value="/update",consumes = "multipart/form-data")
+//	public ResponseEntity<?> updateBook(@RequestParam Integer id,
+//			@RequestParam String bookName ,
+//			@RequestParam String author,
+//			@RequestParam String description,
+//			@RequestParam String category,
+//			@RequestBody MultipartFile file) {
+//		BookDto bookDto=new BookDto();
+//		bookDto.setBookName(bookName);
+//		bookDto.setAuthor(author);
+//		bookDto.setId(id);
+//		bookDto.setDescription(description);
+//		bookDto.setCategory(category);
+//		
+//		System.out.println(bookDto);
+//		return new ResponseEntity<>(bookService.updateBook(bookDto, file), HttpStatus.OK);
+//	}
+	
+	@PostMapping(value="/update/{bookId}",consumes = "multipart/form-data")
+	public ResponseEntity<?> updateBook(@PathVariable Integer bookId,
+			@RequestBody MultipartFile file) {
+		
+		
+		System.out.println(file==null);
+		return new ResponseEntity<>(bookService.updateBook(null, file), HttpStatus.OK);
 	}
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping(value = "/add" , consumes = "multipart/form-data")
 	public ResponseEntity<?> addBook(@RequestParam("file") MultipartFile file ){
 		System.out.println("so");
@@ -109,6 +132,10 @@ public class BookController {
 		return new ResponseEntity<>(reviewService.getReviewByBook(id), HttpStatus.OK);
 	}
 	
+	@GetMapping("/allbooks")
+	public ResponseEntity<?> getAllBooks() {
+		return new ResponseEntity<>(bookService.getAllBooksList(), HttpStatus.OK);
+	}
 	
 	
 	

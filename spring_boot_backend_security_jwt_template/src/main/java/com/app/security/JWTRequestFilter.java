@@ -29,6 +29,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		// check for authorization hdr
 		String authHeadr = request.getHeader("Authorization");
+		System.out.println("auth Header" + authHeadr);
 		if (authHeadr != null && authHeadr.startsWith("Bearer")) {
 			System.out.println("got bearer token");
 			String token = authHeadr.substring(7);

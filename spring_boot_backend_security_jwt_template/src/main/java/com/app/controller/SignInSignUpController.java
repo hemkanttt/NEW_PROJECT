@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,13 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.AuthRequest;
 import com.app.dto.AuthResp;
+import com.app.dto.UserDto;
 import com.app.entities.User;
 import com.app.jwt_utils.JwtUtils;
 import com.app.security.CustomUserDetails;
 import com.app.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api/auth")
 public class SignInSignUpController {
@@ -56,7 +58,10 @@ public class SignInSignUpController {
 			CustomUserDetails userDetails=(CustomUserDetails)authentication.getPrincipal();
 			User user = userDetails.getUser();
 			AuthResp resp = mapper.map(user,AuthResp.class);
+
 			resp.setToken(utils.generateJwtToken(authentication));
+			
+			
 			// => auth succcess
 			return ResponseEntity.ok(resp);
 	//		return ResponseEntity.ok(new AuthResp("Auth successful!", utils.generateJwtToken(authenticatedDetails)));
@@ -71,6 +76,11 @@ public class SignInSignUpController {
 	@PostMapping("/signup")
 	public ResponseEntity<?> userRegistration(@RequestBody @Valid User user) {
 		System.out.println("in reg user : user " );
+		if(userService.checkEmail(user.getEmail())) {
+			
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Email Already Exist");
+			
+		}
 		// invoke service layer method , for saving : user info + associated roles info
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.addUserDetails(user));
 	}

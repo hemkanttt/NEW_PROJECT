@@ -50,7 +50,6 @@ public class CategorySeviceImpl implements CategoryService {
 	
 	@Override
 	public List<CategoryDto> getAllCategory() {
-
 		return catRepo.findAll().stream().map(e -> mapper.map(e, CategoryDto.class)).collect(Collectors.toList());
 	}
 

@@ -31,8 +31,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean checkEmail(String email) {
-		
-		return false;
+		return userRepo.existsByEmail(email);
 	}
 	
 	
@@ -43,6 +42,7 @@ public class UserServiceImpl implements UserService {
 			throw new UserAlreadyExistsException("User Email already exists!!!!!");
 		// encrypt the pwd
 		user.setPassword(enc.encode(user.getPassword()));
+		user.setRole("ROLE_CUSTOMER");
 		return userRepo.save(user);
 	}
 

@@ -35,8 +35,8 @@ public class SecurityConfig {
 				.and()
 			.csrf().disable(). // disable CSRF to continue with REST APIs
 				authorizeRequests() // specify all authorization rules (i.e authorize all requests)
-				.antMatchers("/api/book/review","/api/user/**","/api/payment").hasRole("CUSTOMER")// only customer can purchase the products
-				.antMatchers("/api/admin/**","/api/category/**", "/api/book/delete/**").hasRole("ADMIN") // only admin can add the products
+				.antMatchers("/api/book/review","/api/user/**","/api/payment").permitAll()    //.hasRole("CUSTOMER")// only customer can purchase the products
+				.antMatchers("/api/admin/**", "/api/book/delete/**","/api/category/**").permitAll()      //.hasRole("ADMIN") // only admin can add the products
 				
 				.antMatchers(
 						"/user/signin", 

@@ -1,6 +1,11 @@
 package com.app.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
+
+import com.app.entities.Book;
 
 public class CategoryDto {
 
@@ -12,7 +17,6 @@ public class CategoryDto {
 	@NotEmpty
 	private String description;
 
-	// private List<Books> book = new ArrayList<Books>();
 
 	public CategoryDto() {
 		super();

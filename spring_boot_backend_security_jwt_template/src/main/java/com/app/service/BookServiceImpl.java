@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,7 +101,9 @@ public class BookServiceImpl implements BookService {
 		sum=sum+reviewDto.getRating();
 	}
 		BookDto bookDto = mapper.map(b, BookDto.class);
+		bookDto.setCategory(b.getCategory().getCategoryName());
 		bookDto.setAvgRating(sum/list.size());
+		
 		return bookDto;
 	}
 
@@ -108,11 +111,13 @@ public class BookServiceImpl implements BookService {
 	public BookDto updateBook(BookDto bookDto, MultipartFile file) {
 		Book b = bookRepo.findById(bookDto.getId()).orElseThrow(() -> new ResourceNotFoundException("BookNotFound"));
 
+		System.out.println(bookDto.getCategory());
 		Category cat = catService.getCategory(bookDto.getCategory());
 
 		if (file != null) {
 			b.setImg(file.getOriginalFilename());
 			try {
+				System.out.println("in upload");
 				fileService.uploadImage(path, file);
 			} catch (IOException e) {
 
@@ -146,6 +151,20 @@ public class BookServiceImpl implements BookService {
 	}
 	
 	@Override
+	public List<BookDto> getAllBooksList() {
+		List<Book> books = bookRepo.findAll();
+		System.out.println(books);
+		List<BookDto> bookDto=new ArrayList<BookDto>();
+		for (Book book : books) {
+			BookDto bookDto2 = mapper.map(book,BookDto.class);
+			bookDto2.setCategory	(book.getCategory().getCategoryName());
+			bookDto.add(bookDto2);
+		}
+		System.out.println(bookDto);
+		return bookDto;
+	}
+	
+	@Override
 	public BookResponse getAllBooks(int pageNo, int pageSize, String sortBy, String sortDir) {
 
 		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
@@ -170,5 +189,7 @@ public class BookServiceImpl implements BookService {
 
 		return bookResponse;
 	}
+	
+	
 
 }

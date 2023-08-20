@@ -2,6 +2,8 @@ package com.app.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dto.WishlistDto;
 import com.app.entities.Book;
@@ -10,7 +12,8 @@ import com.app.entities.Wishlist;
 import com.app.repo.BookRepo;
 import com.app.repo.UserRepo;
 import com.app.repo.WishListRepo;
-
+@Service
+@Transactional
 public class WishlistServiceImpl implements WishlistService {
 	
 	@Autowired

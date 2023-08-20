@@ -20,6 +20,11 @@ public class BookDto {
 
 
 	private String category;
+	
+	
+
+
+
 
 	@NotEmpty
 	private String isbnNo;

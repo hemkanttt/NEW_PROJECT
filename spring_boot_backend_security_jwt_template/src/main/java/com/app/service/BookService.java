@@ -22,4 +22,6 @@ public interface BookService {
 	
 	public BookResponse getAllBooks(int pageNo, int pageSize, String sortBy, String sortDir);
 	
+	public List<BookDto> getAllBooksList() ;
+	
 }
