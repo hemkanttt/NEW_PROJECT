@@ -1,5 +1,7 @@
 package com.app.entities;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -42,7 +44,6 @@ public class Book{
 	private String img;
 	
 	private Integer status;
-	
 	
 
 	@Override

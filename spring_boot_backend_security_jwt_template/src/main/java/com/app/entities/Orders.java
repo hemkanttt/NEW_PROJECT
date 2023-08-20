@@ -27,6 +27,9 @@ public class Orders {
 
 	@ManyToOne
 	private Book book;
+	
+	@OneToOne(mappedBy = "order")
+	private Payment paymentId;
 
 	private int quantity;
 

@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.CartDto;
 import com.app.dto.UserDto;
+import com.app.dto.WishlistDto;
 import com.app.entities.User;
 import com.app.service.BookOrderService;
 import com.app.service.CartService;
 import com.app.service.UserService;
+import com.app.service.WishlistService;
 
 @RestController
 @RequestMapping("/api/user")
@@ -31,6 +33,9 @@ public class UserController {
 
 	@Autowired
 	private BookOrderService orderService;
+	
+	@Autowired
+	private WishlistService wishListService;
 //	
 //	@PostMapping("/signin")
 //	public ResponseEntity<?> getUserByEmailandPassword(@RequestBody UserDto userDto) {
@@ -51,6 +56,11 @@ public class UserController {
 	@PostMapping("/cart")
 	public ResponseEntity<?> addToCart(@RequestBody CartDto cartDto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(cartService.addCart(cartDto));
+	}
+	
+	@PostMapping("/wishlist")
+	public ResponseEntity<?> addToWishList(@RequestBody WishlistDto wishlistDto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(wishListService.addToWishList(wishlistDto));
 	}
 
 	@GetMapping("/order/{ptype}/{userId}")

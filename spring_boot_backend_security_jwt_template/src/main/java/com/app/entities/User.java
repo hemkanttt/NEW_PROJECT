@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -31,6 +32,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="user_id")
 	private Integer id;
+	
 
 	private String name;
 
@@ -58,6 +60,9 @@ public class User {
 	
 	@OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , fetch =FetchType.LAZY)
 	List<Cart> cartList=new ArrayList<Cart>();
+	
+	@OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , fetch =FetchType.LAZY)
+	List<Wishlist> wishList=new ArrayList<Wishlist>();
 
 	@Override
 	public String toString() {
